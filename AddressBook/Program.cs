@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 
 class Person
 {
@@ -26,18 +25,24 @@ class AddressBook
 
     public void DeletePerson()
     {
-        Console.WriteLine("Enter the person name You want to delete");
+        Console.WriteLine("Enter the first name of the person you want to delete:");
         string name = Console.ReadLine();
+
         bool found = false;
         for (int i = 0; i < persons.Count; i++)
         {
             if (persons[i].FirstName == name)
             {
                 persons.RemoveAt(i);
-                Console.WriteLine("Person deleted Successfully!");
+                Console.WriteLine("Person deleted successfully!");
                 found = true;
                 break;
             }
+        }
+
+        if (!found)
+        {
+            Console.WriteLine("Person not found");
         }
     }
 
@@ -48,11 +53,12 @@ class AddressBook
 
         bool found = false;
 
-        foreach (var person in  persons)
+        foreach (var person in persons)
         {
             if (person.FirstName == name)
             {
                 Console.WriteLine("Person found. Enter new details: ");
+
                 Console.Write("New Address: ");
                 person.Address = Console.ReadLine();
 
@@ -85,6 +91,12 @@ class AddressBook
 
     public void DisplayAll()
     {
+        if (persons.Count == 0)
+        {
+            Console.WriteLine("No contacts available.");
+            return;
+        }
+
         foreach (var person in persons)
         {
             Console.WriteLine($"{person.FirstName}, {person.LastName}, {person.Address}, {person.City}, {person.State}, {person.Zip}, {person.Email}, {person.PhoneNumber}");
@@ -103,44 +115,54 @@ class Program
         while (true)
         {
             Console.WriteLine("\nChoose an option:");
-            Console.WriteLine("1. Add Person");
+            Console.WriteLine("1. Add Person (UC5: Add Multiple)");
             Console.WriteLine("2. Edit Person");
             Console.WriteLine("3. Delete Person");
             Console.WriteLine("4. Display All");
             Console.WriteLine("5. Exit");
             Console.Write("Enter choice: ");
+
             int choice = int.Parse(Console.ReadLine());
 
             switch (choice)
             {
                 case 1:
-                    Person person = new Person();
+                    char choiceAdd;
+                    do
+                    {
+                        Person person = new Person();
 
-                    Console.Write("First Name: ");
-                    person.FirstName = Console.ReadLine();
+                        Console.Write("First Name: ");
+                        person.FirstName = Console.ReadLine();
 
-                    Console.Write("Last Name: ");
-                    person.LastName = Console.ReadLine();
+                        Console.Write("Last Name: ");
+                        person.LastName = Console.ReadLine();
 
-                    Console.Write("Address: ");
-                    person.Address = Console.ReadLine();
+                        Console.Write("Address: ");
+                        person.Address = Console.ReadLine();
 
-                    Console.Write("City: ");
-                    person.City = Console.ReadLine();
+                        Console.Write("City: ");
+                        person.City = Console.ReadLine();
 
-                    Console.Write("State: ");
-                    person.State = Console.ReadLine();
+                        Console.Write("State: ");
+                        person.State = Console.ReadLine();
 
-                    Console.Write("Zip Code: ");
-                    person.Zip = Console.ReadLine();
+                        Console.Write("Zip Code: ");
+                        person.Zip = Console.ReadLine();
 
-                    Console.Write("Email: ");
-                    person.Email = Console.ReadLine();
+                        Console.Write("Email: ");
+                        person.Email = Console.ReadLine();
 
-                    Console.Write("Phone: ");
-                    person.PhoneNumber = Console.ReadLine();
+                        Console.Write("Phone: ");
+                        person.PhoneNumber = Console.ReadLine();
 
-                    addressbook.AddPerson(person);
+                        addressbook.AddPerson(person);
+
+                        Console.Write("Do you want to add another person? (y/n): ");
+                        choiceAdd = Console.ReadLine().ToLower()[0];
+
+                    } while (choiceAdd == 'y');
+
                     break;
 
                 case 2:
