@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 class Person
 {
@@ -20,6 +21,48 @@ class AddressBook
     {
         persons.Add(p);
         Console.WriteLine("Person added successfully");
+    }
+
+    public void EditPerson()
+    {
+        Console.Write("Enter First Name of person to edit: ");
+        string name = Console.ReadLine();
+
+        bool found = false;
+
+        foreach (var person in  persons)
+        {
+            if (person.FirstName == name)
+            {
+                Console.WriteLine("Person found. Enter new details: ");
+                Console.Write("New Address: ");
+                person.Address = Console.ReadLine();
+
+                Console.Write("New City: ");
+                person.City = Console.ReadLine();
+
+                Console.Write("New State: ");
+                person.State = Console.ReadLine();
+
+                Console.Write("New Zip Code: ");
+                person.Zip = Console.ReadLine();
+
+                Console.Write("New Email: ");
+                person.Email = Console.ReadLine();
+
+                Console.Write("New Phone: ");
+                person.PhoneNumber = Console.ReadLine();
+
+                Console.WriteLine("Person updated successfully!");
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+        {
+            Console.WriteLine("Person not found");
+        }
     }
 
     public void DisplayAll()
@@ -64,9 +107,12 @@ class Program
         Console.Write("Phone: ");
         person.PhoneNumber = Console.ReadLine();
         
+        adressbook.AddPerson(person);
+        adressbook.EditPerson();
         adressbook.DisplayAll();
         
-        adressbook.AddPerson(person);
-        
+        Console.Write("Press any key to exit");
+        Console.ReadKey();
+
     }
 }
