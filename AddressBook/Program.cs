@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 class Person
 {
@@ -21,6 +22,23 @@ class AddressBook
     {
         persons.Add(p);
         Console.WriteLine("Person added successfully");
+    }
+
+    public void DeletePerson()
+    {
+        Console.WriteLine("Enter the person name You want to delete");
+        string name = Console.ReadLine();
+        bool found = false;
+        for (int i = 0; i < persons.Count; i++)
+        {
+            if (persons[i].FirstName == name)
+            {
+                persons.RemoveAt(i);
+                Console.WriteLine("Person deleted Successfully!");
+                found = true;
+                break;
+            }
+        }
     }
 
     public void EditPerson()
@@ -80,39 +98,70 @@ class Program
     {
         Console.WriteLine("Welcome to Address Book Program");
 
-        AddressBook adressbook = new AddressBook();
+        AddressBook addressbook = new AddressBook();
 
-        Person person = new Person();
-        Console.Write("First Name: ");
-        person.FirstName = Console.ReadLine();
-        
-        Console.Write("Last Name: ");
-        person.LastName = Console.ReadLine();
-        
-        Console.Write("Address: ");
-        person.Address = Console.ReadLine();
-        
-        Console.Write("City: ");
-        person.City = Console.ReadLine();
-        
-        Console.Write("State: ");
-        person.State = Console.ReadLine();
-        
-        Console.Write("Zip Code: ");
-        person.Zip = Console.ReadLine();
-        
-        Console.Write("Email: ");
-        person.Email = Console.ReadLine();
+        while (true)
+        {
+            Console.WriteLine("\nChoose an option:");
+            Console.WriteLine("1. Add Person");
+            Console.WriteLine("2. Edit Person");
+            Console.WriteLine("3. Delete Person");
+            Console.WriteLine("4. Display All");
+            Console.WriteLine("5. Exit");
+            Console.Write("Enter choice: ");
+            int choice = int.Parse(Console.ReadLine());
 
-        Console.Write("Phone: ");
-        person.PhoneNumber = Console.ReadLine();
-        
-        adressbook.AddPerson(person);
-        adressbook.EditPerson();
-        adressbook.DisplayAll();
-        
-        Console.Write("Press any key to exit");
-        Console.ReadKey();
+            switch (choice)
+            {
+                case 1:
+                    Person person = new Person();
 
+                    Console.Write("First Name: ");
+                    person.FirstName = Console.ReadLine();
+
+                    Console.Write("Last Name: ");
+                    person.LastName = Console.ReadLine();
+
+                    Console.Write("Address: ");
+                    person.Address = Console.ReadLine();
+
+                    Console.Write("City: ");
+                    person.City = Console.ReadLine();
+
+                    Console.Write("State: ");
+                    person.State = Console.ReadLine();
+
+                    Console.Write("Zip Code: ");
+                    person.Zip = Console.ReadLine();
+
+                    Console.Write("Email: ");
+                    person.Email = Console.ReadLine();
+
+                    Console.Write("Phone: ");
+                    person.PhoneNumber = Console.ReadLine();
+
+                    addressbook.AddPerson(person);
+                    break;
+
+                case 2:
+                    addressbook.EditPerson();
+                    break;
+
+                case 3:
+                    addressbook.DeletePerson();
+                    break;
+
+                case 4:
+                    addressbook.DisplayAll();
+                    break;
+
+                case 5:
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid choice!");
+                    break;
+            }
+        }
     }
 }
