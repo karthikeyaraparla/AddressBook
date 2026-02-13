@@ -108,18 +108,21 @@ class Program
 {
     static void Main()
     {
-        Console.WriteLine("Welcome to Address Book Program");
+        Console.WriteLine("Welcome to Address Book Program (UC6)");
 
-        AddressBook addressbook = new AddressBook();
+        Dictionary<string, AddressBook> addressBooks = new Dictionary<string, AddressBook>();
+        AddressBook currentBook = null;
 
         while (true)
         {
-            Console.WriteLine("\nChoose an option:");
-            Console.WriteLine("1. Add Person (UC5: Add Multiple)");
-            Console.WriteLine("2. Edit Person");
-            Console.WriteLine("3. Delete Person");
-            Console.WriteLine("4. Display All");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("\nMain Menu:");
+            Console.WriteLine("1. Create Address Book");
+            Console.WriteLine("2. Select Address Book");
+            Console.WriteLine("3. Add Person");
+            Console.WriteLine("4. Edit Person");
+            Console.WriteLine("5. Delete Person");
+            Console.WriteLine("6. Display All");
+            Console.WriteLine("7. Exit");
             Console.Write("Enter choice: ");
 
             int choice = int.Parse(Console.ReadLine());
@@ -127,6 +130,42 @@ class Program
             switch (choice)
             {
                 case 1:
+                    Console.Write("Enter new Address Book name: ");
+                    string bookName = Console.ReadLine();
+
+                    if (addressBooks.ContainsKey(bookName))
+                    {
+                        Console.WriteLine("Address Book with this name already exists!");
+                    }
+                    else
+                    {
+                        addressBooks[bookName] = new AddressBook();
+                        Console.WriteLine("Address Book created successfully!");
+                    }
+                    break;
+
+                case 2:
+                    Console.Write("Enter Address Book name to select: ");
+                    string selectName = Console.ReadLine();
+
+                    if (addressBooks.ContainsKey(selectName))
+                    {
+                        currentBook = addressBooks[selectName];
+                        Console.WriteLine($"Address Book '{selectName}' selected.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Address Book not found!");
+                    }
+                    break;
+
+                case 3:
+                    if (currentBook == null)
+                    {
+                        Console.WriteLine("Please select an Address Book first!");
+                        break;
+                    }
+
                     char choiceAdd;
                     do
                     {
@@ -156,7 +195,7 @@ class Program
                         Console.Write("Phone: ");
                         person.PhoneNumber = Console.ReadLine();
 
-                        addressbook.AddPerson(person);
+                        currentBook.AddPerson(person);
 
                         Console.Write("Do you want to add another person? (y/n): ");
                         choiceAdd = Console.ReadLine().ToLower()[0];
@@ -165,19 +204,34 @@ class Program
 
                     break;
 
-                case 2:
-                    addressbook.EditPerson();
-                    break;
-
-                case 3:
-                    addressbook.DeletePerson();
-                    break;
-
                 case 4:
-                    addressbook.DisplayAll();
+                    if (currentBook == null)
+                    {
+                        Console.WriteLine("Please select an Address Book first!");
+                        break;
+                    }
+                    currentBook.EditPerson();
                     break;
 
                 case 5:
+                    if (currentBook == null)
+                    {
+                        Console.WriteLine("Please select an Address Book first!");
+                        break;
+                    }
+                    currentBook.DeletePerson();
+                    break;
+
+                case 6:
+                    if (currentBook == null)
+                    {
+                        Console.WriteLine("Please select an Address Book first!");
+                        break;
+                    }
+                    currentBook.DisplayAll();
+                    break;
+
+                case 7:
                     return;
 
                 default:
