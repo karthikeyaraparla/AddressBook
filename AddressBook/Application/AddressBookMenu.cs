@@ -15,8 +15,9 @@ namespace AddressBook
                 Console.WriteLine("\n1. Create Address Book");
                 Console.WriteLine("2. Select Address Book");
                 Console.WriteLine("3. Add Person");
-                Console.WriteLine("4. Display All");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("4. Search by City/State");
+                Console.WriteLine("5. Display All");
+                Console.WriteLine("6. Exit");
                 Console.Write("Enter choice: ");
 
                 int choice = int.Parse(Console.ReadLine());
@@ -33,9 +34,12 @@ namespace AddressBook
                         if (CheckBook()) AddPerson();
                         break;
                     case 4:
-                        if (CheckBook()) currentBook.DisplayAll();
+                        if (CheckBook()) Search();
                         break;
                     case 5:
+                        if (CheckBook()) currentBook.DisplayAll();
+                        break;
+                    case 6:
                         return;
                 }
             }
@@ -56,15 +60,8 @@ namespace AddressBook
             Console.Write("Enter Address Book name: ");
             string name = Console.ReadLine();
 
-            if (Program.Books.ContainsKey(name))
-            {
-                Console.WriteLine("Address Book already exists!");
-            }
-            else
-            {
+            if (!Program.Books.ContainsKey(name))
                 Program.Books[name] = new AddressBookService();
-                Console.WriteLine("Address Book created!");
-            }
         }
 
         private void SelectBook()
@@ -73,38 +70,34 @@ namespace AddressBook
             string name = Console.ReadLine();
 
             if (Program.Books.ContainsKey(name))
-            {
                 currentBook = Program.Books[name];
-                Console.WriteLine("Address Book selected!");
-            }
-            else
-            {
-                Console.WriteLine("Address Book not found!");
-            }
         }
 
         private void AddPerson()
         {
             Person p = new Person();
-
             Console.Write("First Name: ");
             p.FirstName = Console.ReadLine();
             Console.Write("Last Name: ");
             p.LastName = Console.ReadLine();
-            Console.Write("Address: ");
-            p.Address = Console.ReadLine();
             Console.Write("City: ");
             p.City = Console.ReadLine();
             Console.Write("State: ");
             p.State = Console.ReadLine();
-            Console.Write("Zip: ");
-            p.Zip = Console.ReadLine();
-            Console.Write("Phone: ");
-            p.PhoneNumber = Console.ReadLine();
-            Console.Write("Email: ");
-            p.Email = Console.ReadLine();
 
             currentBook.AddPerson(p);
+        }
+
+        private void Search()
+        {
+            Console.Write("Enter City or State: ");
+            string value = Console.ReadLine();
+
+            var results = currentBook.SearchByCityOrState(value);
+            foreach (var p in results)
+            {
+                Console.WriteLine($"{p.FirstName} {p.LastName}, {p.City}, {p.State}");
+            }
         }
     }
 }

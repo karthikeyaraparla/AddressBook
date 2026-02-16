@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AddressBook.Models;
 
 namespace AddressBook.Core
@@ -18,6 +19,11 @@ namespace AddressBook.Core
 
             persons.Add(person);
             Console.WriteLine("Person added successfully!");
+        }
+
+        public List<Person> SearchByCityOrState(string value)
+        {
+            return persons.Where(p => p.City == value || p.State == value).ToList();
         }
 
         public void DisplayAll()
