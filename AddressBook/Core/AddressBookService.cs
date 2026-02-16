@@ -21,9 +21,14 @@ namespace AddressBook.Core
             Console.WriteLine("Person added successfully!");
         }
 
-        public List<Person> SearchByCityOrState(string value)
+        public List<Person> ViewByCity(string city)
         {
-            return persons.Where(p => p.City == value || p.State == value).ToList();
+            return persons.Where(p => p.City == city).ToList();
+        }
+
+        public List<Person> ViewByState(string state)
+        {
+            return persons.Where(p => p.State == state).ToList();
         }
 
         public void DisplayAll()

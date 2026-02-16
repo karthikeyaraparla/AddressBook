@@ -14,9 +14,7 @@ namespace AddressBook.Models
         public override bool Equals(object obj)
         {
             if (obj is Person other)
-            {
                 return FirstName == other.FirstName && LastName == other.LastName;
-            }
             return false;
         }
 
