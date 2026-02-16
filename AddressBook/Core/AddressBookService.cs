@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using AddressBook.Models;
-using System;
 
 namespace AddressBook.Core
 {
@@ -11,6 +11,7 @@ namespace AddressBook.Core
         public void AddPerson(Person person)
         {
             persons.Add(person);
+            Console.WriteLine("Person added successfully!");
         }
 
         public void EditPerson(string firstName)
@@ -49,6 +50,20 @@ namespace AddressBook.Core
 
             persons.Remove(person);
             Console.WriteLine("Person deleted successfully!");
+        }
+
+        public void DisplayAll()
+        {
+            if (persons.Count == 0)
+            {
+                Console.WriteLine("No contacts available.");
+                return;
+            }
+
+            foreach (var p in persons)
+            {
+                Console.WriteLine($"{p.FirstName} {p.LastName}, {p.City}, {p.State}, {p.Zip}, {p.Email}, {p.PhoneNumber}");
+            }
         }
     }
 }

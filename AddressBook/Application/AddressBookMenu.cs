@@ -12,10 +12,11 @@ namespace AddressBook
         {
             while (true)
             {
-                Console.WriteLine("1. Add Person");
+                Console.WriteLine("\n1. Add Person");
                 Console.WriteLine("2. Edit Person");
                 Console.WriteLine("3. Delete Person");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Display All");
+                Console.WriteLine("5. Exit");
                 Console.Write("Enter choice: ");
 
                 int choice = int.Parse(Console.ReadLine());
@@ -23,7 +24,7 @@ namespace AddressBook
                 switch (choice)
                 {
                     case 1:
-                        AddPerson();
+                        AddMultiplePersons();
                         break;
                     case 2:
                         Console.Write("Enter First Name to edit: ");
@@ -34,34 +35,44 @@ namespace AddressBook
                         service.DeletePerson(Console.ReadLine());
                         break;
                     case 4:
+                        service.DisplayAll();
+                        break;
+                    case 5:
                         return;
                 }
             }
         }
 
-        private void AddPerson()
+        private void AddMultiplePersons()
         {
-            Person p = new Person();
+            char ch;
+            do
+            {
+                Person p = new Person();
 
-            Console.Write("First Name: ");
-            p.FirstName = Console.ReadLine();
-            Console.Write("Last Name: ");
-            p.LastName = Console.ReadLine();
-            Console.Write("Address: ");
-            p.Address = Console.ReadLine();
-            Console.Write("City: ");
-            p.City = Console.ReadLine();
-            Console.Write("State: ");
-            p.State = Console.ReadLine();
-            Console.Write("Zip: ");
-            p.Zip = Console.ReadLine();
-            Console.Write("Phone: ");
-            p.PhoneNumber = Console.ReadLine();
-            Console.Write("Email: ");
-            p.Email = Console.ReadLine();
+                Console.Write("First Name: ");
+                p.FirstName = Console.ReadLine();
+                Console.Write("Last Name: ");
+                p.LastName = Console.ReadLine();
+                Console.Write("Address: ");
+                p.Address = Console.ReadLine();
+                Console.Write("City: ");
+                p.City = Console.ReadLine();
+                Console.Write("State: ");
+                p.State = Console.ReadLine();
+                Console.Write("Zip: ");
+                p.Zip = Console.ReadLine();
+                Console.Write("Phone: ");
+                p.PhoneNumber = Console.ReadLine();
+                Console.Write("Email: ");
+                p.Email = Console.ReadLine();
 
-            service.AddPerson(p);
-            Console.WriteLine("Person added successfully!");
+                service.AddPerson(p);
+
+                Console.Write("Add another person? (y/n): ");
+                ch = Console.ReadLine().ToLower()[0];
+
+            } while (ch == 'y');
         }
     }
 }
