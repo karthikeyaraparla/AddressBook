@@ -105,6 +105,13 @@ namespace AddressBook
             int count = currentBook.CountByState(state);
             Console.WriteLine($"Count in {state}: {count}");
         }
+        private void SortByName()
+        {
+            var list = currentBook.SortByName();
+            foreach (var p in list)
+                Console.WriteLine(p);
+        }
+
 
     }
 }

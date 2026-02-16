@@ -17,27 +17,11 @@ namespace AddressBook.Core
                 return;
             }
             persons.Add(person);
-            Console.WriteLine("Person added successfully!");
         }
 
-        public int CountByCity(string city)
+        public List<Person> SortByName()
         {
-            return persons.Count(p => p.City == city);
-        }
-
-        public int CountByState(string state)
-        {
-            return persons.Count(p => p.State == state);
-        }
-
-        public List<Person> ViewByCity(string city)
-        {
-            return persons.Where(p => p.City == city).ToList();
-        }
-
-        public List<Person> ViewByState(string state)
-        {
-            return persons.Where(p => p.State == state).ToList();
+            return persons.OrderBy(p => p.FirstName).ThenBy(p => p.LastName).ToList();
         }
     }
 }

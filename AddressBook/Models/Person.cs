@@ -22,5 +22,10 @@ namespace AddressBook.Models
         {
             return (FirstName + LastName).GetHashCode();
         }
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}, {City}, {State}, {Zip}, {Email}, {PhoneNumber}";
+        }
+
     }
 }
