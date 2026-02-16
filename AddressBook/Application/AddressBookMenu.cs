@@ -111,6 +111,24 @@ namespace AddressBook
             foreach (var p in list)
                 Console.WriteLine(p);
         }
+        private void SortByCity()
+        {
+            foreach (var p in currentBook.SortByCity())
+                Console.WriteLine(p);
+        }
+
+        private void SortByState()
+        {
+            foreach (var p in currentBook.SortByState())
+                Console.WriteLine(p);
+        }
+
+        private void SortByZip()
+        {
+            foreach (var p in currentBook.SortByZip())
+                Console.WriteLine(p);
+        }
+
 
 
     }

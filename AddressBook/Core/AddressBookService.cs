@@ -23,5 +23,20 @@ namespace AddressBook.Core
         {
             return persons.OrderBy(p => p.FirstName).ThenBy(p => p.LastName).ToList();
         }
+
+        public List<Person> SortByCity()
+        {
+            return persons.OrderBy(p => p.City).ToList();
+        }
+
+        public List<Person> SortByState()
+        {
+            return persons.OrderBy(p => p.State).ToList();
+        }
+
+        public List<Person> SortByZip()
+        {
+            return persons.OrderBy(p => p.Zip).ToList();
+        }
     }
 }
