@@ -10,5 +10,19 @@ namespace AddressBook.Models
         public string Zip       { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Person other)
+            {
+                return FirstName == other.FirstName && LastName == other.LastName;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (FirstName + LastName).GetHashCode();
+        }
     }
 }
