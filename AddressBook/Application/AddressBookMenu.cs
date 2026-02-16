@@ -89,5 +89,22 @@ namespace AddressBook
             foreach (var p in list)
                 Console.WriteLine($"{p.FirstName} {p.LastName}, {p.City}, {p.State}");
         }
+        // same as UC9 but add:
+        private void CountByCity()
+        {
+            Console.Write("Enter City: ");
+            string city = Console.ReadLine();
+            int count = currentBook.CountByCity(city);
+            Console.WriteLine($"Count in {city}: {count}");
+        }
+
+        private void CountByState()
+        {
+            Console.Write("Enter State: ");
+            string state = Console.ReadLine();
+            int count = currentBook.CountByState(state);
+            Console.WriteLine($"Count in {state}: {count}");
+        }
+
     }
 }

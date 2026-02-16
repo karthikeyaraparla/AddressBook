@@ -16,9 +16,18 @@ namespace AddressBook.Core
                 Console.WriteLine("Duplicate person not allowed!");
                 return;
             }
-
             persons.Add(person);
             Console.WriteLine("Person added successfully!");
+        }
+
+        public int CountByCity(string city)
+        {
+            return persons.Count(p => p.City == city);
+        }
+
+        public int CountByState(string state)
+        {
+            return persons.Count(p => p.State == state);
         }
 
         public List<Person> ViewByCity(string city)
@@ -29,14 +38,6 @@ namespace AddressBook.Core
         public List<Person> ViewByState(string state)
         {
             return persons.Where(p => p.State == state).ToList();
-        }
-
-        public void DisplayAll()
-        {
-            foreach (var p in persons)
-            {
-                Console.WriteLine($"{p.FirstName} {p.LastName}, {p.City}, {p.State}");
-            }
         }
     }
 }
