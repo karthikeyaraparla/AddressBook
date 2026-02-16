@@ -10,6 +10,33 @@ namespace AddressBook
 
         public void Start()
         {
+            while (true)
+            {
+                Console.WriteLine("1. Add Person");
+                Console.WriteLine("2. Edit Person");
+                Console.WriteLine("3. Exit");
+                Console.Write("Enter choice: ");
+
+                int choice = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        AddPerson();
+                        break;
+                    case 2:
+                        Console.Write("Enter First Name to edit: ");
+                        string name = Console.ReadLine();
+                        service.EditPerson(name);
+                        break;
+                    case 3:
+                        return;
+                }
+            }
+        }
+
+        private void AddPerson()
+        {
             Person p = new Person();
 
             Console.Write("First Name: ");
