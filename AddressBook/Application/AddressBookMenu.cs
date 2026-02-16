@@ -6,15 +6,15 @@ namespace AddressBook
 {
     public class AddressBookMenu
     {
-        private AddressBookService service = new AddressBookService();
+        private AddressBookService currentBook = null;
 
         public void Start()
         {
             while (true)
             {
-                Console.WriteLine("\n1. Add Person");
-                Console.WriteLine("2. Edit Person");
-                Console.WriteLine("3. Delete Person");
+                Console.WriteLine("\n1. Create Address Book");
+                Console.WriteLine("2. Select Address Book");
+                Console.WriteLine("3. Add Person");
                 Console.WriteLine("4. Display All");
                 Console.WriteLine("5. Exit");
                 Console.Write("Enter choice: ");
@@ -24,18 +24,16 @@ namespace AddressBook
                 switch (choice)
                 {
                     case 1:
-                        AddMultiplePersons();
+                        CreateBook();
                         break;
                     case 2:
-                        Console.Write("Enter First Name to edit: ");
-                        service.EditPerson(Console.ReadLine());
+                        SelectBook();
                         break;
                     case 3:
-                        Console.Write("Enter First Name to delete: ");
-                        service.DeletePerson(Console.ReadLine());
+                        if (CheckBook()) AddPerson();
                         break;
                     case 4:
-                        service.DisplayAll();
+                        if (CheckBook()) currentBook.DisplayAll();
                         break;
                     case 5:
                         return;
@@ -43,36 +41,70 @@ namespace AddressBook
             }
         }
 
-        private void AddMultiplePersons()
+        private bool CheckBook()
         {
-            char ch;
-            do
+            if (currentBook == null)
             {
-                Person p = new Person();
+                Console.WriteLine("Select an Address Book first!");
+                return false;
+            }
+            return true;
+        }
 
-                Console.Write("First Name: ");
-                p.FirstName = Console.ReadLine();
-                Console.Write("Last Name: ");
-                p.LastName = Console.ReadLine();
-                Console.Write("Address: ");
-                p.Address = Console.ReadLine();
-                Console.Write("City: ");
-                p.City = Console.ReadLine();
-                Console.Write("State: ");
-                p.State = Console.ReadLine();
-                Console.Write("Zip: ");
-                p.Zip = Console.ReadLine();
-                Console.Write("Phone: ");
-                p.PhoneNumber = Console.ReadLine();
-                Console.Write("Email: ");
-                p.Email = Console.ReadLine();
+        private void CreateBook()
+        {
+            Console.Write("Enter Address Book name: ");
+            string name = Console.ReadLine();
 
-                service.AddPerson(p);
+            if (Program.Books.ContainsKey(name))
+            {
+                Console.WriteLine("Address Book already exists!");
+            }
+            else
+            {
+                Program.Books[name] = new AddressBookService();
+                Console.WriteLine("Address Book created!");
+            }
+        }
 
-                Console.Write("Add another person? (y/n): ");
-                ch = Console.ReadLine().ToLower()[0];
+        private void SelectBook()
+        {
+            Console.Write("Enter Address Book name: ");
+            string name = Console.ReadLine();
 
-            } while (ch == 'y');
+            if (Program.Books.ContainsKey(name))
+            {
+                currentBook = Program.Books[name];
+                Console.WriteLine("Address Book selected!");
+            }
+            else
+            {
+                Console.WriteLine("Address Book not found!");
+            }
+        }
+
+        private void AddPerson()
+        {
+            Person p = new Person();
+
+            Console.Write("First Name: ");
+            p.FirstName = Console.ReadLine();
+            Console.Write("Last Name: ");
+            p.LastName = Console.ReadLine();
+            Console.Write("Address: ");
+            p.Address = Console.ReadLine();
+            Console.Write("City: ");
+            p.City = Console.ReadLine();
+            Console.Write("State: ");
+            p.State = Console.ReadLine();
+            Console.Write("Zip: ");
+            p.Zip = Console.ReadLine();
+            Console.Write("Phone: ");
+            p.PhoneNumber = Console.ReadLine();
+            Console.Write("Email: ");
+            p.Email = Console.ReadLine();
+
+            currentBook.AddPerson(p);
         }
     }
 }
