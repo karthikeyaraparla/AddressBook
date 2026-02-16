@@ -14,7 +14,8 @@ namespace AddressBook
             {
                 Console.WriteLine("1. Add Person");
                 Console.WriteLine("2. Edit Person");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("3. Delete Person");
+                Console.WriteLine("4. Exit");
                 Console.Write("Enter choice: ");
 
                 int choice = int.Parse(Console.ReadLine());
@@ -26,10 +27,13 @@ namespace AddressBook
                         break;
                     case 2:
                         Console.Write("Enter First Name to edit: ");
-                        string name = Console.ReadLine();
-                        service.EditPerson(name);
+                        service.EditPerson(Console.ReadLine());
                         break;
                     case 3:
+                        Console.Write("Enter First Name to delete: ");
+                        service.DeletePerson(Console.ReadLine());
+                        break;
+                    case 4:
                         return;
                 }
             }

@@ -16,7 +16,6 @@ namespace AddressBook.Core
         public void EditPerson(string firstName)
         {
             Person person = persons.Find(p => p.FirstName == firstName);
-
             if (person == null)
             {
                 Console.WriteLine("Person not found!");
@@ -25,28 +24,31 @@ namespace AddressBook.Core
 
             Console.Write("New Address: ");
             person.Address = Console.ReadLine();
-
             Console.Write("New City: ");
             person.City = Console.ReadLine();
-
             Console.Write("New State: ");
             person.State = Console.ReadLine();
-
             Console.Write("New Zip: ");
             person.Zip = Console.ReadLine();
-
             Console.Write("New Phone: ");
             person.PhoneNumber = Console.ReadLine();
-
             Console.Write("New Email: ");
             person.Email = Console.ReadLine();
 
             Console.WriteLine("Person updated successfully!");
         }
 
-        public List<Person> GetAllPersons()
+        public void DeletePerson(string firstName)
         {
-            return persons;
+            Person person = persons.Find(p => p.FirstName == firstName);
+            if (person == null)
+            {
+                Console.WriteLine("Person not found!");
+                return;
+            }
+
+            persons.Remove(person);
+            Console.WriteLine("Person deleted successfully!");
         }
     }
 }
